@@ -60,8 +60,7 @@ fun GroupView(groupEntity: EggGroupEntity, index: Int, navController: NavControl
                     .background(Color.Yellow))
             Text(text = "#${index + 1}", color = Color(0xFFC4C4C4),
                 modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight())
+                    .weight(1f))
         }
     }
 }
