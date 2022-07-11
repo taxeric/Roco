@@ -31,8 +31,15 @@ object SpiritHelper {
     }
 
     suspend fun initSpiritDataByCurrentId(context: Context, complete: (Boolean) -> Unit = {}) {
-        if (groupMap.containsKey(currentGroupId)) {
-            initSpiritDataByAssesName(context, groupMap[currentGroupId]!!, complete)
+        try {
+            if (groupMap.containsKey(currentGroupId)) {
+                initSpiritDataByAssesName(context, groupMap[currentGroupId]!!, complete)
+            } else {
+                complete(false)
+            }
+        } catch (e: Exception){
+            "failed -> $e".log()
+            complete(false)
         }
     }
 

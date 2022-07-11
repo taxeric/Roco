@@ -39,21 +39,16 @@ fun DetailScreen(navController: NavController){
         mutableStateOf(false)
     }
     val parseData = SpiritHelper.getSpiritDataByCurrentGroupId().toMutableStateList()
+    parseData.forEach {
+        "${it.father} + ${it.mother} = ${it.skills}".log()
+    }
     spiritList.clear()
     spiritList.addAll(parseData)
     if (!hasCheck && spiritList.isEmpty()) {
         hasCheck = true
         "has check".log()
         LaunchedEffect(key1 = "init_data") {
-            SpiritHelper.initSpiritDataByCurrentId(context) {
-                "complete -> $it".log()
-                if (it) {
-                    spiritList.clear()
-                    spiritList.addAll(
-                        SpiritHelper.getSpiritDataByCurrentGroupId().toMutableStateList()
-                    )
-                }
-            }
+            SpiritHelper.initSpiritDataByCurrentId(context)
         }
     }
     val groupName = SpiritHelper.getCurrentGroupData()?.groupName ?: "出错了"
@@ -119,22 +114,17 @@ fun DetailsLazyList(list: List<SpiritData>){
 
 @Composable
 fun DetailItem(data: SpiritData){
-    var skills = ""
-    if (data.skills.isEmpty()){
-        skills = "无"
-    } else {
-        data.skills.forEachIndexed {index, it ->
-            skills += it.skillName
-            if (index != data.skills.size - 1){
-                skills += ","
-            }
-        }
-    }
     Row(modifier = Modifier
         .fillMaxWidth()
-        .wrapContentHeight()) {
+        .wrapContentHeight(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
         Text(text = data.father.spiritName, fontSize = 10.sp, modifier = Modifier.weight(1.5f))
         Text(text = data.mother.spiritName, fontSize = 10.sp, modifier = Modifier.weight(1.5f))
-        Text(text = skills, fontSize = 10.sp, modifier = Modifier.weight(3f))
+        Row(modifier = Modifier.weight(3f)){
+            data.skills.forEachIndexed {index, it ->
+                Text(text = it.skillName, modifier = Modifier.padding(if (index == 0) 0.dp else 5.dp, 0.dp, 0.dp, 0.dp))
+            }
+        }
     }
 }
