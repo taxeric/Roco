@@ -55,7 +55,7 @@ object SpiritHelper {
                 ism.copyStreamToFile(file)
             }
         }
-        val document = Jsoup.parse(file)
+        val document = Jsoup.parse(file, )
         withContext(Dispatchers.Default) {
             initData(document, baseEntity.groupId)
         }
