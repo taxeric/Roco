@@ -53,7 +53,7 @@ fun GroupView(groupEntity: EggGroupEntity, index: Int, navController: NavControl
             Image(painter = painterResource(id = R.drawable.ic_egg), contentDescription = "egg",
                 modifier = Modifier
                     .weight(2f)
-                    .fillMaxHeight())
+                    .height(30.dp))
             Text(text = groupEntity.groupName, color = Color(0xFF000000),
                 modifier = Modifier
                     .weight(4f)

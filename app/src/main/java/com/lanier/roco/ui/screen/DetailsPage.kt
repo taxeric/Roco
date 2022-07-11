@@ -1,15 +1,23 @@
 package com.lanier.roco.ui.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.rememberScrollableState
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.Placeholder
@@ -119,11 +127,22 @@ fun DetailItem(data: SpiritData){
         .wrapContentHeight(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = data.father.spiritName, fontSize = 10.sp, modifier = Modifier.weight(1.5f))
-        Text(text = data.mother.spiritName, fontSize = 10.sp, modifier = Modifier.weight(1.5f))
-        Row(modifier = Modifier.weight(3f)){
+        Text(text = data.father.spiritName, fontSize = 12.sp, modifier = Modifier.weight(2.2f))
+        Text(text = data.mother.spiritName, fontSize = 12.sp, modifier = Modifier.weight(2.2f))
+        Row(modifier = Modifier
+            .weight(3f)
+            .horizontalScroll(
+                rememberScrollState()
+            )){
             data.skills.forEachIndexed {index, it ->
-                Text(text = it.skillName, modifier = Modifier.padding(if (index == 0) 0.dp else 5.dp, 0.dp, 0.dp, 0.dp))
+                Text(text = it.skillName,
+                    fontSize = 12.sp,
+                    modifier = Modifier
+                    .padding(if (index == 0) 0.dp else 5.dp, 2.dp, 0.dp, 2.dp)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(Color(0xFFE8E8E8))
+                    .padding(1.dp)
+                )
             }
         }
     }
