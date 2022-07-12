@@ -6,7 +6,7 @@ import android.util.Log
  * Create by Eric
  * on 2022/7/9
  */
-private const val TAG = "LANIER"
+private const val TAG = "LANIER_ROCO"
 
 fun String.log(){
     Log.i(TAG, this)
