@@ -94,8 +94,8 @@ fun DetailScreen(navController: NavController){
                             contentDescription = ""
                         )
                     }))
-            Text(text = male, inlineContent = inlineContent, modifier = Modifier.weight(1.5f))
-            Text(text = female, inlineContent = inlineContent, modifier = Modifier.weight(1.5f))
+            Text(text = male, inlineContent = inlineContent, modifier = Modifier.weight(2.2f))
+            Text(text = female, inlineContent = inlineContent, modifier = Modifier.weight(2.2f))
             Text(text = "skills", modifier = Modifier.weight(3f))
         }
         Spacer(modifier = Modifier
