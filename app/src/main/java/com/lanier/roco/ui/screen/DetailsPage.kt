@@ -12,6 +12,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,6 +61,11 @@ fun DetailScreen(navController: NavController){
     Column(modifier = Modifier.fillMaxSize()) {
         TitleBar(backResource = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24), title = groupName){
             navController.popBackStack()
+        }
+        Button(onClick = {
+            SpiritHelper.calculateSkills("电狐", "迷你乌利", "id_clever")
+        }) {
+            Text(text = "测试")
         }
         Row(modifier = Modifier
             .fillMaxWidth()
