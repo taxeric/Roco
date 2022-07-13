@@ -41,23 +41,20 @@ import com.lanier.roco.util.log
 fun DetailScreen(navController: NavController){
     val context = LocalContext.current
     val spiritList = remember {
-        mutableStateListOf<SpiritData>()
+        SpiritHelper.getSpiritDataByCurrentGroupId().toMutableStateList()
     }
-    var hasCheck by remember {
-        mutableStateOf(false)
-    }
-    val parseData = SpiritHelper.getSpiritDataByCurrentGroupId().toMutableStateList()
-    parseData.forEach {
-        "${it.father} + ${it.mother} = ${it.skills}".log()
-    }
-    spiritList.clear()
-    spiritList.addAll(parseData)
-    if (!hasCheck && spiritList.isEmpty()) {
-        hasCheck = true
-        "has check".log()
+    if (spiritList.isEmpty()) {
         LaunchedEffect(key1 = "init_data") {
-            SpiritHelper.initSpiritDataByCurrentId(context)
+            SpiritHelper.initSpiritDataByCurrentId(context) {
+                if (it) {
+                    spiritList.clear()
+                    spiritList.addAll(SpiritHelper.getSpiritDataByCurrentGroupId())
+                }
+            }
         }
+    }
+    spiritList.forEach {
+        "${it.father} + ${it.mother} = ${it.skills}".log()
     }
     val groupName = SpiritHelper.getCurrentGroupData()?.groupName ?: "出错了"
     Column(modifier = Modifier.fillMaxSize()) {
@@ -138,10 +135,10 @@ fun DetailItem(data: SpiritData){
                 Text(text = it.skillName,
                     fontSize = 12.sp,
                     modifier = Modifier
-                    .padding(if (index == 0) 0.dp else 5.dp, 2.dp, 0.dp, 2.dp)
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(Color(0xFFE8E8E8))
-                    .padding(1.dp)
+                        .padding(if (index == 0) 0.dp else 5.dp, 2.dp, 0.dp, 2.dp)
+                        .clip(RoundedCornerShape(5.dp))
+                        .background(Color(0xFFE8E8E8))
+                        .padding(1.dp)
                 )
             }
         }
