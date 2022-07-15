@@ -49,7 +49,7 @@ object SpiritHelper {
         //找到A公B母的指定精灵
         val allSkillsData = getSpiritGeneticSkillFromParentName(fatherName, motherName, groupId)
         if (allSkillsData == null){
-            "未找到指定精灵".log()
+            "未发现可遗传技能".log()
             return
         }
         "第二代精灵 -> ${allSkillsData.father.spiritName}[公] + ${allSkillsData.mother.spiritName}[母] = ${allSkillsData.skills}".log()
@@ -115,6 +115,8 @@ object SpiritHelper {
 //                spiritData.skills.toMutableList().add(allSkillsData.skills[0])
                 "第三代精灵 -> ${spiritData.father.spiritName}[公] + ${spiritData.mother.spiritName}[母] = ${spiritData.skills}".log()
             }
+        } else {
+            "未发现三代遗传精灵".log()
         }
     }
 

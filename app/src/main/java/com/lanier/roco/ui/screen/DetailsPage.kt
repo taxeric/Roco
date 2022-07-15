@@ -63,7 +63,7 @@ fun DetailScreen(navController: NavController){
             navController.popBackStack()
         }
         Button(onClick = {
-            SpiritHelper.calculateSkills("电狐", "迷你乌利", "id_clever")
+            SpiritHelper.calculateSkills("烈火飞龙", "彩翼虫", "id_sky")
         }) {
             Text(text = "测试")
         }
