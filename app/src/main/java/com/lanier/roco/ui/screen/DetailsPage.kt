@@ -1,19 +1,16 @@
 package com.lanier.roco.ui.screen
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,22 +21,83 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.PlaceholderVerticalAlign
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.navigation.NavController
 import com.lanier.roco.R
 import com.lanier.roco.entity.SpiritData
+import com.lanier.roco.manager.ROUTE_GENETIC_SCREEN
 import com.lanier.roco.ui.common.TitleBar
 import com.lanier.roco.util.SpiritHelper
 import com.lanier.roco.util.log
+import kotlinx.coroutines.delay
 
 /**
  * Create by Eric
  * on 2022/7/9
  */
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(navController: NavController){
+    val groupName = SpiritHelper.getCurrentGroupData()?.groupName ?: "出错了"
+    val snackbarHostState = remember { SnackbarHostState() }
+    var showSnackBar by remember {
+        mutableStateOf(false)
+    }
+    var menuOpened by remember {
+        mutableStateOf(false)
+    }
+    if (showSnackBar) {
+        LaunchedEffect(key1 = "showSnackBar") {
+            snackbarHostState.showSnackbar("待完善")
+//            delay(2000L)
+            showSnackBar = false
+        }
+    }
+    Scaffold(
+        modifier = Modifier.fillMaxWidth(),
+        topBar = {
+            SmallTopAppBar(
+                title = { Text(text = groupName) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        menuOpened = !menuOpened
+                    }) {
+                        Icon(imageVector = Icons.Filled.Menu, contentDescription = "menu")
+                    }
+                }
+            )
+        },
+        snackbarHost = {
+            SnackbarHost(hostState = snackbarHostState)
+        }
+    ){ innerPadding ->
+        DetailScreenImpl(innerPadding)
+    }
+    if (menuOpened){
+        DetailMenuItems {
+            when (it) {
+                0 -> navController.navigate(ROUTE_GENETIC_SCREEN)
+                1 -> showSnackBar = true
+            }
+            menuOpened = false
+        }
+    }
+}
+
+@Composable
+fun DetailScreenImpl(innerPadding: PaddingValues){
     val context = LocalContext.current
     val spiritList = remember {
         SpiritHelper.getSpiritDataByCurrentGroupId().toMutableStateList()
@@ -54,19 +112,9 @@ fun DetailScreen(navController: NavController){
             }
         }
     }
-    spiritList.forEach {
-        "${it.father} + ${it.mother} = ${it.skills}".log()
-    }
-    val groupName = SpiritHelper.getCurrentGroupData()?.groupName ?: "出错了"
-    Column(modifier = Modifier.fillMaxSize()) {
-        TitleBar(backResource = painterResource(id = R.drawable.ic_baseline_arrow_back_ios_24), title = groupName){
-            navController.popBackStack()
-        }
-        Button(onClick = {
-            SpiritHelper.calculateSkills("烈火飞龙", "彩翼虫", "id_sky")
-        }) {
-            Text(text = "测试")
-        }
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(innerPadding)) {
         Row(modifier = Modifier
             .fillMaxWidth()
             .height(50.dp), verticalAlignment = Alignment.CenterVertically) {
@@ -110,12 +158,14 @@ fun DetailScreen(navController: NavController){
 
 @Composable
 fun DetailsLazyList(list: List<SpiritData>){
+    "重组".log()
     LazyColumn(modifier = Modifier.fillMaxSize()){
         if (list.isEmpty()) {
             item {
-                Text(text = "未添加或出错了", modifier = Modifier.fillMaxWidth())
+                Text(text = "数据还未初始化或出错了", modifier = Modifier.fillMaxWidth())
             }
         } else {
+            "一共 ${list.size} 条数据".log()
             itemsIndexed(list) { index, data ->
                 DetailItem(data = data)
             }
@@ -137,6 +187,7 @@ fun DetailItem(data: SpiritData){
             .horizontalScroll(
                 rememberScrollState()
             )){
+            "技能 ${data.skills.size}".log()
             data.skills.forEachIndexed {index, it ->
                 Text(text = it.skillName,
                     fontSize = 12.sp,
@@ -147,6 +198,36 @@ fun DetailItem(data: SpiritData){
                         .padding(1.dp)
                 )
             }
+        }
+    }
+}
+
+@Composable
+fun DetailMenuItems(onDismiss: (Int) -> Unit){
+    val scrollState = rememberScrollState()
+    Dialog(
+        onDismissRequest = { onDismiss(-1) },
+        properties = DialogProperties(dismissOnBackPress = false, dismissOnClickOutside = false)
+    ) {
+        Column(modifier = Modifier
+            .clip(RoundedCornerShape(5.dp))
+            .background(Color.White)
+            .verticalScroll(scrollState)) {
+            Text(text = "调试", fontSize = 18.sp, fontWeight = FontWeight.Bold, modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+            TextButton(onClick = { onDismiss(0) }, modifier = Modifier.fillMaxWidth()){
+                Text(text = "三代精灵")
+            }
+            TextButton(onClick = { onDismiss(1) }, modifier = Modifier.fillMaxWidth()){
+                Text(text = "n代精灵")
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+            TextButton(onClick = { onDismiss(-1) }, modifier = Modifier
+                .align(Alignment.End)
+                .padding(5.dp)) {
+                Text(text = "Cancel")
+            }
+            Spacer(modifier = Modifier.height(5.dp))
         }
     }
 }

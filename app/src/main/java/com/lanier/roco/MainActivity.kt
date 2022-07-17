@@ -14,11 +14,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.lanier.roco.manager.PARAMS_CURRENT_GROUP_ID
-import com.lanier.roco.manager.PARAMS_CURRENT_GROUP_NAME
-import com.lanier.roco.manager.ROUTE_GROUP_SCREEN
-import com.lanier.roco.manager.ROUTE_MAIN_SCREEN
+import com.lanier.roco.manager.*
 import com.lanier.roco.ui.screen.DetailScreen
+import com.lanier.roco.ui.screen.GeneticScreen
 import com.lanier.roco.ui.screen.MainScreen
 import com.lanier.roco.ui.theme.RocoTheme
 import com.lanier.roco.util.SpiritHelper
@@ -41,6 +39,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(ROUTE_GROUP_SCREEN,){
                             DetailScreen(navController)
+                        }
+                        composable(ROUTE_GENETIC_SCREEN){
+                            GeneticScreen(navController)
                         }
                     }
                 }

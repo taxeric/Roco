@@ -11,3 +11,5 @@ const val PARAMS_CURRENT_GROUP_ID = "currentChooseGroupId"
 const val PARAMS_CURRENT_GROUP_NAME = "currentChooseGroupName"
 
 const val ROUTE_GROUP_SCREEN = "groupPage"
+
+const val ROUTE_GENETIC_SCREEN = "geneticPage"

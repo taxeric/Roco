@@ -33,24 +33,24 @@ object SpiritHelper {
      *
      * 只有雄性能遗传
      *
-     * A(公)+B(母)=B[X]
-     * A(公)+C(母)=C[X]
-     * B(公)+C(母)=C[Y1]
-     * C(公)+B(母)=B[Y2]
+     * A(公X)+B(母)=B[X]
+     * A(公X)+C(母)=C[X]
+     * B(公Y1)+C(母)=C[Y1]
+     * C(公Y2)+B(母)=B[Y2]
      *
      * B(公X)+C(母)=C[X,Y1]
      * C(公X)+B(母)=B[X,Y2]
      */
-    fun calculateSkills(fatherName: String, motherName: String, groupId: String){
+    fun calculateSkills(fatherName: String, motherName: String, groupId: String): Result<CalculateEntity>{
         if (!spiritMap.containsKey(groupId)){
             "需要初始化 $groupId".log()
-            return
+            return Result.success(CalculateEntity("需要初始化组别信息"))
         }
         //找到A公B母的指定精灵
         val allSkillsData = getSpiritGeneticSkillFromParentName(fatherName, motherName, groupId)
         if (allSkillsData == null){
-            "未发现可遗传技能".log()
-            return
+            "未发现可遗传技能或父母有误".log()
+            return Result.success(CalculateEntity("未发现可遗传技能或父母有误"))
         }
         "第二代精灵 -> ${allSkillsData.father.spiritName}[公] + ${allSkillsData.mother.spiritName}[母] = ${allSkillsData.skills}".log()
         //找到除了A公B母的所有A公+C母精灵
@@ -58,6 +58,7 @@ object SpiritHelper {
         //存放所有符合A公C母=[X]的所有精灵(即与A公B母技能只要有一个一样的精灵)
         val acSpiritResult = mutableListOf<SpiritData>()
         //遍历A公B母孵出蛋蛋的所有技能
+        val sb = StringBuilder()
         allSkillsData.skills.forEachIndexed AgBm@{ index, skill ->
             //遍历除了A公B母的所有A公+C母精灵
             allFatherSkillsData.forEach AgCm@{ spirit ->
@@ -79,6 +80,7 @@ object SpiritHelper {
             }
         }
         //存放所有可携带多代遗传技能的精灵
+        var resultInfo = ""
         val resultSpiritData = mutableListOf<SpiritData>()
         if (acSpiritResult.isNotEmpty()){
             "共发现 ${acSpiritResult.size} 组精灵".log()
@@ -89,35 +91,33 @@ object SpiritHelper {
                 val cgbm = getSpiritGeneticSkillFromParentName(baseParent.mother.spiritName, motherName, groupId)
                 if (bgcm != null){
                     //彩翼虫 + 咔咔鸟 = 信号之光
-//                    "父: ${bgcm.father.spiritName} + 母: ${bgcm.mother.spiritName} = ${bgcm.skills} ${bgcm.skills.size}".log()
                     val list = bgcm.skills.toMutableList()
                     list.add(baseParent.skills[0])
                     val resultSpirit = bgcm.copy(skills = list)
-//                    "父: ${resultSpirit.father.spiritName} + 母: ${resultSpirit.mother.spiritName} = ${resultSpirit.skills} ${resultSpirit.skills.size}".log()
                     resultSpiritData.add(resultSpirit)
                 }
                 if (cgbm != null){
                     //咔咔鸟 + 彩翼虫 = 风之保护
-//                    "父: ${cgbm.father.spiritName} + 母: ${cgbm.mother.spiritName} = ${cgbm.skills} ${cgbm.skills.size}".log()
                     val list = cgbm.skills.toMutableList()
                     list.add(baseParent.skills[0])
                     val resultSpirit = cgbm.copy(skills = list)
-//                    "父: ${resultSpirit.father.spiritName} + 母: ${resultSpirit.mother.spiritName} = ${resultSpirit.skills} ${resultSpirit.skills.size}".log()
                     resultSpiritData.add(resultSpirit)
                 }
             }
         } else {
             "未发现可多代遗传精灵".log()
+            resultInfo = "未发现支持三代遗传的二代精灵"
         }
         //总结
         if (resultSpiritData.isNotEmpty()){
             resultSpiritData.forEach { spiritData ->
-//                spiritData.skills.toMutableList().add(allSkillsData.skills[0])
                 "第三代精灵 -> ${spiritData.father.spiritName}[公] + ${spiritData.mother.spiritName}[母] = ${spiritData.skills}".log()
             }
         } else {
-            "未发现三代遗传精灵".log()
+            resultSpiritData.clear()
+            "未发现支持三代遗传的精灵".log()
         }
+        return Result.success(CalculateEntity(resultInfo, resultSpiritData))
     }
 
     fun getSpiritGeneticsDataFromFamilyNameExceptSelf(fatherName: String, motherName: String, groupId: String): List<SpiritData>{
@@ -245,3 +245,8 @@ object SpiritHelper {
         stringBuilder.delete(0, stringBuilder.length)
     }
 }
+
+data class CalculateEntity(
+    val errorMsg: String = "",
+    val data: List<SpiritData> = emptyList()
+)
