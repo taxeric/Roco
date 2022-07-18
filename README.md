@@ -1,5 +1,8 @@
 # Roco
-compose实现的洛克王国精灵孵蛋技能遗传图鉴
+Compose实现的洛克王国精灵孵蛋技能遗传图鉴
+
+## 截图
+![screen](https://github.com/taxeric/Roco/blob/master/screen/x2.png)
 
 ## 数据
 - [动物组](http://news.4399.com/luoke/miji/201107-04-102712.html)
