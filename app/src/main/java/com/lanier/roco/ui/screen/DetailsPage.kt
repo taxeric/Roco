@@ -158,14 +158,12 @@ fun DetailScreenImpl(innerPadding: PaddingValues){
 
 @Composable
 fun DetailsLazyList(list: List<SpiritData>){
-    "重组".log()
     LazyColumn(modifier = Modifier.fillMaxSize()){
         if (list.isEmpty()) {
             item {
                 Text(text = "数据还未初始化或出错了", modifier = Modifier.fillMaxWidth())
             }
         } else {
-            "一共 ${list.size} 条数据".log()
             itemsIndexed(list) { index, data ->
                 DetailItem(data = data)
             }
@@ -187,7 +185,6 @@ fun DetailItem(data: SpiritData){
             .horizontalScroll(
                 rememberScrollState()
             )){
-            "技能 ${data.skills.size}".log()
             data.skills.forEachIndexed {index, it ->
                 Text(text = it.skillName,
                     fontSize = 12.sp,

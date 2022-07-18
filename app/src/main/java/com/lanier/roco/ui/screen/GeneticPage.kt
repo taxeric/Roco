@@ -56,7 +56,7 @@ fun GeneticPageImpl(innerPadding: PaddingValues){
         mutableStateOf(false)
     }
     val list = remember {
-        mutableListOf<SpiritData>()
+        mutableStateListOf<SpiritData>()
     }
     var errorMsg by remember {
         mutableStateOf("")
@@ -64,47 +64,45 @@ fun GeneticPageImpl(innerPadding: PaddingValues){
     Column(modifier = Modifier
         .padding(innerPadding)
         .fillMaxSize()) {
-//        Row(modifier = Modifier.fillMaxWidth()) {
-            OutlinedTextField(
-                value = fatherName,
-                onValueChange = {
-                    fatherName = it
-                },
-                label = {
-                    Text(text = "雄性精灵名字")
-                },
-                singleLine = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 2.dp)
-            )
         OutlinedTextField(
-                value = motherName,
-                onValueChange = {
-                    motherName = it
-                },
-                label = {
-                    Text(text = "雌性精灵名字")
-                },
-                singleLine = true,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 2.dp)
-            )
-            Button(
-                onClick = {
-                    getData = true
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 2.dp)
-            ) {
-                Text(text = "获取")
-            }
-            Spacer(modifier = Modifier.height(20.dp))
+            value = fatherName,
+            onValueChange = {
+                fatherName = it
+            },
+            label = {
+                Text(text = "雄性精灵名字")
+            },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp, 2.dp)
+        )
+        OutlinedTextField(
+            value = motherName,
+            onValueChange = {
+                motherName = it
+            },
+            label = {
+                Text(text = "雌性精灵名字")
+            },
+            singleLine = true,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp, 2.dp)
+        )
+        Button(
+            onClick = {
+                getData = true
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp, 2.dp)
+        ) {
+            Text(text = "获取")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
         Text(text = errorMsg, color = Color.Red)
         DetailsLazyList(list = list)
-//        }
     }
     if (getData) {
         if (fatherName.isEmpty() || motherName.isEmpty()) {
