@@ -1,8 +1,20 @@
 # Roco
-Compose实现的洛克王国精灵孵蛋技能遗传图鉴
+Compose实现的洛克王国~~孵蛋技能遗传图鉴~~攻略
 
 ## 截图
 ![screen](https://github.com/taxeric/Roco/blob/master/screen/x2.png)
+
+## 需求变更
+### 2022/07/21
+为了更好学习Compose，遂将遗传图鉴变更为攻略
+
+## TODO
+- 精灵大全
+- 技能大全
+- 环境大全
+- 天气大全
+- 伤害计算
+- 新闻攻略
 
 ## 原理
 ### 孵蛋
@@ -21,7 +33,7 @@ Compose实现的洛克王国精灵孵蛋技能遗传图鉴
 * C(公X,Y2)+B(母)=B[X,Y2]
 ```
 
-## 数据
+## 遗传数据
 - [动物组](http://news.4399.com/luoke/miji/201107-04-102712.html)
 - [精灵组](http://news.4399.com/luoke/miji/201107-04-102712_2.html)
 - [天空组](http://news.4399.com/luoke/miji/201107-04-102712_3.html)
