@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -50,7 +51,8 @@ class MainActivity : ComponentActivity() {
                             BottomAppBar {
                                 items.forEach { item ->
                                     BottomNavigationItem(
-                                        icon = {},
+                                        icon = {
+                                        },
                                         label = { Text(item.title) },
                                         selected = currentRoute?.hierarchy?.any { it.route == item.route } == true,
                                         onClick = {
@@ -76,9 +78,15 @@ class MainActivity : ComponentActivity() {
                         NavHost(navController,
                             startDestination = Screen.NewsList.route,
                             Modifier.padding(innerPadding)) {
-                            composable(Screen.NewsList.route) { NewsScreen(navController) }
-                            composable(Screen.SpiritList.route) { SpiritScreen(navController) }
-                            composable(Screen.OtherList.route) { OtherScreen(navController) }
+                            composable(Screen.NewsList.route) {
+                                NewsScreen(navController, Screen.NewsList.title)
+                            }
+                            composable(Screen.SpiritList.route) {
+                                SpiritScreen(navController, Screen.SpiritList.title)
+                            }
+                            composable(Screen.OtherList.route) {
+                                OtherScreen(navController, Screen.OtherList.title)
+                            }
                         }
                     }
 /*                    NavHost(navController = navController, startDestination = ROUTE_MAIN_SCREEN){
