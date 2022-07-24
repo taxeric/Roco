@@ -1,8 +1,12 @@
 package com.lanier.roco.ui.screen
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.lanier.roco.repo.viewmodel.OtherViewModel
 
 /**
  * Create by Eric
@@ -10,5 +14,10 @@ import androidx.navigation.NavController
  */
 @Composable
 fun OtherScreen(navController: NavController){
-    Text(text = "其他")
+    val vm: OtherViewModel = viewModel()
+    Column {
+        OutlinedTextField(value = vm.testStr, onValueChange = {
+            vm.testStr = it
+        })
+    }
 }

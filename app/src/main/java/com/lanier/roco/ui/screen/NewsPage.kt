@@ -2,12 +2,13 @@ package com.lanier.roco.ui.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.lanier.roco.repo.NewsViewModel
+import com.lanier.roco.repo.viewmodel.NewsViewModel
 import com.lanier.roco.util.log
 
 /**
@@ -25,5 +26,8 @@ fun NewsScreen(navController: NavController){
         }) {
             Text(text = "load")
         }
+        OutlinedTextField(value = vm.testStr, onValueChange = {
+            vm.testStr = it
+        })
     }
 }
