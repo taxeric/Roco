@@ -22,8 +22,6 @@ fun NewsScreen(navController: NavController){
     Column {
         Text(text = "新闻大全")
         Button(onClick = {
-            "解析".log()
-            vm.analyzeSpiritX()
         }) {
             Text(text = "load")
         }
