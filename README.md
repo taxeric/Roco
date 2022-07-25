@@ -5,7 +5,7 @@
 - [4399技能大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
 - [遗传信息获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/SpiritHelper.kt)
 
-此外，由于4399洛克王国断代约3年，技能及精灵缺失严重，**您或许需要手动录入数据**。
+对于某些技能，百科里额外添加了`（技能石）`，项目里没有处理，您可以根据喜好来排除这些字符。此外，由于4399洛克王国断代约3年，技能及精灵缺失严重，**您或许需要手动录入/更改数据**。
 
 如果您**只需要遗传信息**，只需
 1. 将[MainActivity.kt](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/MainActivity.kt) 下的`Scaffold`方法体注释
