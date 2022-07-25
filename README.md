@@ -1,5 +1,11 @@
 # 2022/07/25
-**本项目不再维护，新项目[ROCO攻略]暂时闭源**。本项目已经提供百度百科及4399技能大全数据获取类，希望您能自己获取。此外，由于4399洛克王国断代约3年，技能及精灵缺失严重，您或许需要手动录入数据。后续攻略可能会允许您共同开发
+**本项目不再维护，新项目[ROCO攻略]暂时闭源**。  
+本项目目前提供:
+- [百度百科精灵大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
+- [4399技能大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
+- [遗传信息获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/SpiritHelper.kt)
+
+此外，由于4399洛克王国断代约3年，技能及精灵缺失严重，**您或许需要手动录入数据**。
 
 # Roco
 Compose实现的洛克王国~~孵蛋技能遗传图鉴~~攻略
