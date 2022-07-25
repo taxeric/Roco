@@ -7,6 +7,10 @@
 
 此外，由于4399洛克王国断代约3年，技能及精灵缺失严重，**您或许需要手动录入数据**。
 
+如果您**只需要遗传信息**，只需
+1. 将[MainActivity.kt](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/MainActivity.kt) 下的`Scaffold`方法体注释
+2. 将`NavHost`取消注释
+
 # Roco
 Compose实现的洛克王国~~孵蛋技能遗传图鉴~~攻略
 
