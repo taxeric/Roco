@@ -1,5 +1,7 @@
+# 2022/10/09
+新项目[RocoGuide]已开源，点击[前往](https://github.com/taxeric/RocoGuide)**
 # 2022/07/25
-**本项目不再维护，新项目[ROCO攻略]点击[前往](https://github.com/taxeric/RocoGuide)**。  
+**本项目不再维护，新项目[RocoGuide]暂时闭源。  
 本项目目前提供:
 - [百度百科精灵大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
 - [4399技能大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
