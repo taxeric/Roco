@@ -12,14 +12,14 @@
 2. 将`NavHost`取消注释
 
 # Roco
-Compose实现的洛克王国~~孵蛋技能遗传图鉴~~攻略
+Compose实现的洛克王国~~孵蛋技能遗传图鉴~~指南
 
 ## 截图
 ![screen](https://github.com/taxeric/Roco/blob/master/screen/x2.png)
 
 ## 需求变更
 ### 2022/07/21
-为了更好学习Compose，遂将遗传图鉴变更为攻略
+为了更好学习Compose，遂将遗传图鉴变更为指南
 
 ## TODO
 - 精灵大全
@@ -28,6 +28,9 @@ Compose实现的洛克王国~~孵蛋技能遗传图鉴~~攻略
 - 天气大全
 - 伤害计算
 - 新闻攻略
+
+以下为原版README
+---
 
 ## 原理
 ### 孵蛋
