@@ -1,7 +1,7 @@
 # 2022/10/09
-新项目[RocoGuide]已开源，点击[前往](https://github.com/taxeric/RocoGuide)**
+新项目[RocoGuide]已开源，点击[前往](https://github.com/taxeric/RocoGuide)
 # 2022/07/25
-**本项目不再维护，新项目[RocoGuide]暂时闭源。  
+**本项目不再维护，新项目[RocoGuide]暂时闭源**。  
 本项目目前提供:
 - [百度百科精灵大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
 - [4399技能大全数据获取](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/util/JsoupUtil.kt)
@@ -13,15 +13,17 @@
 1. 将[MainActivity.kt](https://github.com/taxeric/Roco/blob/master/app/src/main/java/com/lanier/roco/MainActivity.kt) 下的`Scaffold`方法体注释
 2. 将`NavHost`取消注释
 
+# 2022/07/21
+为了更好学习Compose，遂将遗传图鉴变更为指南
+
+以下为原版README
+---
+
 # Roco
-Compose实现的洛克王国~~孵蛋技能遗传图鉴~~指南
+Compose实现的洛克王国孵蛋技能遗传图鉴
 
 ## 截图
 ![screen](https://github.com/taxeric/Roco/blob/master/screen/x2.png)
-
-## 需求变更
-### 2022/07/21
-为了更好学习Compose，遂将遗传图鉴变更为指南
 
 ## TODO
 - 精灵大全
@@ -30,9 +32,6 @@ Compose实现的洛克王国~~孵蛋技能遗传图鉴~~指南
 - 天气大全
 - 伤害计算
 - 新闻攻略
-
-以下为原版README
----
 
 ## 原理
 ### 孵蛋
